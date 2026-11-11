@@ -14,7 +14,19 @@ def parse_input_file(uploaded_file):
         content = uploaded_file.read() if hasattr(uploaded_file, "read") else uploaded_file
         if isinstance(content, bytes):
             content = content.decode("utf-8")
-        data = json.loads(content) if isinstance(content, str) else content
+        if isinstance(content, str):
+            try:
+                data = json.loads(content)
+            except json.JSONDecodeError as error:
+                lines = [line.strip() for line in content.splitlines() if line.strip()]
+                try:
+                    data = [json.loads(line) for line in lines]
+                except json.JSONDecodeError:
+                    raise error
+                if not all(isinstance(record, dict) for record in data):
+                    raise error
+        else:
+            data = content
 
         if isinstance(data, dict):
             for val in data.values():

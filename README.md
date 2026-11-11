@@ -47,7 +47,7 @@ Streamlit prints a local URL, usually `http://localhost:8501`. Open it in your b
 
 ## Input data
 
-Upload a `.csv` file or a `.json` file. CSV files should have a header row. JSON can be a list of event objects, or an object containing a list of event objects. Each object in the list becomes a row.
+Upload a `.csv` file or a `.json` file. CSV files should have a header row. JSON may be a list of event objects, an object containing a list of event objects, or newline-delimited JSON (one event object per line). Each event becomes a row.
 
 There is no required column naming convention, but useful event fields include timestamps, user or session identifiers, device, location, login result, failed-attempt count, and session duration. The detector infers column types, but review the preview because automatic inference can be wrong. Identifier-like fields are excluded from model features; recognized binary label/flag fields are also excluded to reduce label leakage.
 
